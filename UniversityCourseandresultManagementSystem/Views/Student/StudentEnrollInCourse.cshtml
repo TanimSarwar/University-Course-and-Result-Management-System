@@ -1,0 +1,303 @@
+﻿@model UniversityCourseandresultManagementSystem.Models.CourseEnrollment
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Enroll In a Course</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/sb-admin.css" rel="stylesheet" />
+    <link href="~/Content/fontawesome-free/css/all.min.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-datepicker.min.css" rel="stylesheet" />
+
+
+    <style>
+        .input-validation-error {
+            border: 1px solid red;
+        }
+
+        .field-validation-error {
+            color: red;
+        }
+
+        .container {
+            padding: 30px;
+            font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+        }
+    </style>
+</head>
+<body id="page-top">
+
+    <nav class="navbar navbar-dark bg-dark">
+        <i class="fas fa-users-cog" style="color: white"></i>
+        <h5 style="color: white">Enroll In a Course</h5>
+        <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle">
+            <i class="fas fa-bars"></i>
+        </button>
+        <!-- Navbar -->
+    </nav>
+    <div id="wrapper">
+        <!-- Sidebar -->
+        <ul class="sidebar navbar-nav">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-building"></i>
+                    <span>Department</span>
+                </a>
+                <div class="dropdown-menu" aria-labelledby="pagesDropdown" style="position: absolute; top: 0px; left: 0px; transform: translate3d(5px, 63px, 0px);">
+                    <a class="dropdown-item" href="@Url.Action("SaveDepartment", "Department")">
+                        <i class="fa fa-building"></i>
+                        Save Department
+                    </a>
+                    <a class="dropdown-item" href="@Url.Action("ViewDepartment", "Department")">
+                        <i class="fas fa-vote-yea"></i>
+                        View Department
+                    </a>
+                </div>
+            </li>
+
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-chalkboard-teacher"></i>
+                    <span>Student</span>
+                </a>
+                <div class="dropdown-menu" aria-labelledby="pagesDropdown" style="position: absolute; top: 0px; left: 0px; transform: translate3d(5px, 63px, 0px);">
+                    <a class="dropdown-item" href="@Url.Action("SaveStudent", "Student")">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                        Register Student
+                    </a>
+                    <a class="dropdown-item" href="@Url.Action("StudentEnrollInCourse", "Student")">
+                        <i class="fas fa-users-cog"></i>
+                        Enroll In a Course
+                    </a>
+                    <a class="dropdown-item" href="@Url.Action("SaveStudentResult", "Student")">
+                        <i class="fa fa-download"></i>
+                        Save Student Result
+                    </a>
+                    <a class="dropdown-item" href="@Url.Action("ViewStudentResult", "Student")">
+                        <i class="fas fa-poll-h"></i>
+                        View Result
+                    </a>
+                </div>
+            </li>
+
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-user-graduate"></i>
+                    <span>Teacher</span>
+                </a>
+                <div class="dropdown-menu" aria-labelledby="pagesDropdown" style="position: absolute; top: 0px; left: 0px; transform: translate3d(5px, 63px, 0px);">
+                    <a class="dropdown-item" href="@Url.Action("SaveTeacher", "Teacher")">
+                        <i class="fas fa-user-graduate"></i>
+                        Save Teacher
+                    </a>
+                    <a class="dropdown-item" href="@Url.Action("CourseAssignToTeacher", "Teacher")">
+                        <i class="fas fa-user-tag"></i>
+                        Assign Course
+                    </a>
+                </div>
+            </li>
+
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-book-open"></i>
+                    <span>Course</span>
+                </a>
+                <div class="dropdown-menu" aria-labelledby="pagesDropdown" style="position: absolute; top: 0px; left: 0px; transform: translate3d(5px, 63px, 0px);">
+                    <a class="dropdown-item" href="@Url.Action("SaveCourse", "Course")">
+                        <i class="fas fa-book-open"></i>
+                        Save Course
+                    </a>
+                    <a class="dropdown-item" href="@Url.Action("ViewCourseStatics", "Course")">
+                        <i class="fas fa-sliders-h"></i>
+                        View Course Statics
+                    </a>
+                    <a class="dropdown-item" href="@Url.Action("UnassignCourse", "Course")">
+                        <i class="fas fa-user-times"></i>
+                        Unassign Courses
+                    </a>
+                </div>
+            </li>
+
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-home"></i>
+                    <span>Classroom</span>
+                </a>
+                <div class="dropdown-menu" aria-labelledby="pagesDropdown" style="position: absolute; top: 0px; left: 0px; transform: translate3d(5px, 63px, 0px);">
+                    <a class="dropdown-item" href="@Url.Action("AllocateRoom", "ClassRoom")">
+                        <i class="fas fa-lock"></i>
+                        Allocate Classroom
+                    </a>
+                    <a class="dropdown-item" href="@Url.Action("ViewClassRoutine", "ClassRoom")">
+                        <i class="fas fa-calendar-alt"></i>
+                        View Class Schedule
+                    </a>
+                    <a class="dropdown-item" href="@Url.Action("UnallocateClassRooms", "ClassRoom")">
+                        <i class="fas fa-unlock"></i>
+                        Unallocate Classroom
+                    </a>
+                </div>
+            </li>
+        </ul>
+        <div id="content-wrapper">
+            <div class="container-fluid">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="form-group row">
+                            @using (Html.BeginForm(null, null, FormMethod.Post, new { @class = "form-group" }))
+                            {
+                                <table>
+                                    <tr>
+                                        <td>
+                                            @Html.LabelFor(x => x.StudentId)
+                                        </td>
+                                        <td>
+                                            @Html.DropDownListFor(x => x.StudentId, new SelectList(ViewBag.StudentsRegNo, "Value", "Text"), new { @class = "form-control" })
+                                            <span>@Html.ValidationMessageFor(x => x.StudentId)</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <label>Name</label>
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control" readonly="readonly" name="StudentName" id="StudentName" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <label>Email</label>
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control" readonly="readonly" name="Email" id="Email" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <label>Department</label>
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control" readonly="readonly" name="Department" id="Department" />
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>
+                                            @Html.LabelFor(x => x.CourseId)
+                                        </td>
+                                        <td>
+                                            <select name="CourseId" id="CourseId" class="form-control">
+                                                <option value="">---Select Course---</option>
+                                            </select>
+                                            <span>@Html.ValidationMessageFor(x => x.CourseId)</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <label>Date</label>
+                                        </td>
+                                        <td><input class="form-control" type="text" name="Date" data-date-format="yyyy-dd-mm" id="datepicker" readonly /></td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td align="right"><input type="submit" value="Save" class="btn btn-primary" /></td>
+                                    </tr>
+                                </table>
+                            }
+                        </div>
+                    </div>
+                    @if (ViewBag.Message != null)
+                    {
+                        if (ViewBag.Message == "Course Successfully Assigned to the Student")
+                        {
+                            <div class="alert alert-success" role="alert">
+                                @ViewBag.Message
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="alert alert-danger" role="alert">
+                                @ViewBag.Message
+                            </div>
+                        }
+
+                    }
+                </div>
+                <footer class="sticky-footer">
+                    <div class="container my-auto">
+                        <div class="copyright text-center my-auto">
+                            <span>Copyright © The Avengers @DateTime.Now.Year</span>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </div>
+
+    <script src="~/Scripts/Jquery3.2.1/jquery-3.2.1.js"></script>
+    <script src="~/Scripts/Jquery3.2.1/jquery.validate.min.js"></script>
+<script src="~/Scripts/Jquery3.2.1/jquery.validate.unobtrusive.js"></script>
+    <script src="~/Scripts/bootstrap.bundle.min.js"></script>
+    <script src="~/Scripts/sb-admin.js"></script>
+    <script src="~/Scripts/bootstrap-datepicker.js"></script>
+
+    <script>
+        $(function () {
+            $("#datepicker").datepicker({
+                autoclose: true,
+                todayHighlight: true
+            }).datepicker('update', new Date());
+        });
+
+    </script>
+    <script src="~/Scripts/DataTables/jquery.dataTables.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#StudentId").change(function () {
+                var studentId = $("#StudentId").val();
+                $("#Email").val("");
+                $("#Name").val("");
+                $("#Department").val("");
+                $("#CourseId").empty();
+                $("#CourseId").append('<option value= "">---Select Course---</option>');
+
+                var json = {
+                    studentId: studentId
+                };
+
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("GetStudentByStudentId", "Student")',
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify(json),
+                    success: function (data) {
+                        $("#Email").val(data.StudentEmail);
+                        $("#StudentName").val(data.StudentName);
+                        $("#Department").val(data.DepartmentName);
+                    }
+                });
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("GetCoursesByStudentId", "Student")',
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify(json),
+                    success: function (data) {
+                        $.each(data, function (key, value) {
+                            $("#CourseId").append('<option value=' + value.Id + '>' + value.CourseCode + '</option>');
+                        });
+
+                    }
+
+                });
+
+            });
+
+        });
+
+    </script>
+</body>
+</html>

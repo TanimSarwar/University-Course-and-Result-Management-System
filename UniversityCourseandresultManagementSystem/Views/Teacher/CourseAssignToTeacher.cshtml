@@ -1,0 +1,344 @@
+﻿@model UniversityCourseandresultManagementSystem.Models.Teacher
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Course Assign to Teacher</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/sb-admin.css" rel="stylesheet" />
+    <link href="~/Content/fontawesome-free/css/all.min.css" rel="stylesheet" />
+    <style>
+        .input-validation-error {
+            border: 1px solid red;
+        }
+
+        .field-validation-error {
+            color: red;
+        }
+
+        .container {
+            padding: 30px;
+            font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+        }
+    </style>
+</head>
+<body id="page-top">
+
+    <nav class="navbar navbar-dark bg-dark">
+        <i class="fas fa-user-tag" style="color: white"></i>
+        <h5 style="color: white">Course Assign to Teacher</h5>
+        <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle">
+            <i class="fas fa-bars"></i>
+        </button>
+        <!-- Navbar -->
+    </nav>
+    <div id="wrapper">
+        <!-- Sidebar -->
+        <ul class="sidebar navbar-nav">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-building"></i>
+                    <span>Department</span>
+                </a>
+                <div class="dropdown-menu" aria-labelledby="pagesDropdown" style="position: absolute; top: 0px; left: 0px; transform: translate3d(5px, 63px, 0px);">
+                    <a class="dropdown-item" href="@Url.Action("SaveDepartment", "Department")">
+                        <i class="fa fa-building"></i>
+                        Save Department
+                    </a>
+                    <a class="dropdown-item" href="@Url.Action("ViewDepartment", "Department")">
+                        <i class="fas fa-vote-yea"></i>
+                        View Department
+                    </a>
+                </div>
+            </li>
+
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-chalkboard-teacher"></i>
+                    <span>Student</span>
+                </a>
+                <div class="dropdown-menu" aria-labelledby="pagesDropdown" style="position: absolute; top: 0px; left: 0px; transform: translate3d(5px, 63px, 0px);">
+                    <a class="dropdown-item" href="@Url.Action("SaveStudent", "Student")">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                        Register Student
+                    </a>
+                    <a class="dropdown-item" href="@Url.Action("StudentEnrollInCourse", "Student")">
+                        <i class="fas fa-users-cog"></i>
+                        Enroll In a Course
+                    </a>
+                    <a class="dropdown-item" href="@Url.Action("SaveStudentResult", "Student")">
+                        <i class="fa fa-download"></i>
+                        Save Student Result
+                    </a>
+                    <a class="dropdown-item" href="@Url.Action("ViewStudentResult", "Student")">
+                        <i class="fas fa-poll-h"></i>
+                        View Result
+                    </a>
+                </div>
+            </li>
+
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-user-graduate"></i>
+                    <span>Teacher</span>
+                </a>
+                <div class="dropdown-menu" aria-labelledby="pagesDropdown" style="position: absolute; top: 0px; left: 0px; transform: translate3d(5px, 63px, 0px);">
+                    <a class="dropdown-item" href="@Url.Action("SaveTeacher", "Teacher")">
+                        <i class="fas fa-user-graduate"></i>
+                        Save Teacher
+                    </a>
+                    <a class="dropdown-item" href="@Url.Action("CourseAssignToTeacher", "Teacher")">
+                        <i class="fas fa-user-tag"></i>
+                        Assign Course
+                    </a>
+                </div>
+            </li>
+
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-book-open"></i>
+                    <span>Course</span>
+                </a>
+                <div class="dropdown-menu" aria-labelledby="pagesDropdown" style="position: absolute; top: 0px; left: 0px; transform: translate3d(5px, 63px, 0px);">
+                    <a class="dropdown-item" href="@Url.Action("SaveCourse", "Course")">
+                        <i class="fas fa-book-open"></i>
+                        Save Course
+                    </a>
+                    <a class="dropdown-item" href="@Url.Action("ViewCourseStatics", "Course")">
+                        <i class="fas fa-sliders-h"></i>
+                        View Course Statics
+                    </a>
+                    <a class="dropdown-item" href="@Url.Action("UnassignCourse", "Course")">
+                        <i class="fas fa-user-times"></i>
+                        Unassign Courses
+                    </a>
+                </div>
+            </li>
+
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-home"></i>
+                    <span>Classroom</span>
+                </a>
+                <div class="dropdown-menu" aria-labelledby="pagesDropdown" style="position: absolute; top: 0px; left: 0px; transform: translate3d(5px, 63px, 0px);">
+                    <a class="dropdown-item" href="@Url.Action("AllocateRoom", "ClassRoom")">
+                        <i class="fas fa-lock"></i>
+                        Allocate Classroom
+                    </a>
+                    <a class="dropdown-item" href="@Url.Action("ViewClassRoutine", "ClassRoom")">
+                        <i class="fas fa-calendar-alt"></i>
+                        View Class Schedule
+                    </a>
+                    <a class="dropdown-item" href="@Url.Action("UnallocateClassRooms", "ClassRoom")">
+                        <i class="fas fa-unlock"></i>
+                        Unallocate Classroom
+                    </a>
+                </div>
+            </li>
+        </ul>
+        <div id="content-wrapper">
+            <div class="container-fluid">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="form-group row">
+
+                            @using (Html.BeginForm(null, null, FormMethod.Post, new { onsubmit = "return checkCredit()" }))
+                            {
+
+                                <table>
+                                    <tr>
+                                        <td><label class="form-label">Deaprtment</label></td>
+
+                                        <td>
+                                            @Html.DropDownListFor(x => x.TeacherDepartmentId, new SelectList(ViewBag.Departments, "Value", "Text"), new { @class = "form-control" })
+                                            <span>@Html.ValidationMessageFor(x => x.TeacherDepartmentId)</span>
+
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><label class="form-label">Teacher</label></td>
+                                        <td>
+                                            <select name="TeacherId" id="TeacherId" class="form-control">
+                                                <option value="">---Select Teacher---</option>
+                                            </select>
+                                            <span>@Html.ValidationMessage("TeachereId")</span>
+
+
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><label class="form-label">Credit To be Taken</label></td>
+
+                                        <td><input type="text" readonly="readonly" name="Credit" id="Credit" class="form-control" /></td>
+                                    </tr>
+                                    <tr>
+                                        <td><label class="form-label">Remaining Credit</label></td>
+                                        <td><input type="text" readonly="readonly" name="RemainingCredit" id="RemainingCredit" class="form-control" /></td>
+                                    </tr>
+                                    <tr>
+                                        <td><label class="form-label">Course Code</label></td>
+                                        <td>
+                                            <select name="CourseId" id="CourseId" class="form-control">
+                                                <option value="">---Select Course---</option>
+                                            </select>
+                                            <span>@Html.ValidationMessage("CourseId")</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><label class="form-label">Name</label></td>
+                                        <td><input type="text" readonly="readonly" name="CourseName" id="CourseName" class="form-control" /></td>
+                                    </tr>
+                                    <tr>
+                                        <td><label class="form-label">Credit</label></td>
+                                        <td><input type="text" readonly="readonly" name="CourseCredit" id="CourseCredit" class="form-control" /></td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td align="right"> <input type="submit" value="Save" class="btn btn-primary"></td>
+                                    </tr>
+                                </table>
+
+                            }
+                        </div>
+                    </div>
+                    @if (ViewBag.Message != null)
+                    {
+                        if (ViewBag.Message == "Course Assigned to Teacher Successfully")
+                        {
+                            <div class="alert alert-success" role="alert">
+                                @ViewBag.Message
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="alert alert-danger" role="alert">
+                                @ViewBag.Message
+                            </div>
+                        }
+
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="sticky-footer">
+        <div class="container my-auto">
+            <div class="copyright text-center my-auto">
+                <span>Copyright © The Avengers @DateTime.Now.Year</span>
+            </div>
+        </div>
+    </footer>
+    <script src="~/Scripts/Jquery3.2.1/jquery-3.2.1.js"></script>
+    <script src="~/Scripts/Jquery3.2.1/jquery.validate.min.js"></script>
+    <script src="~/Scripts/Jquery3.2.1/jquery.validate.unobtrusive.js"></script>
+    <script src="~/Scripts/DataTables/jquery.dataTables.js"></script>
+    <script src="~/Scripts/sb-admin.js"></script>
+    <script src="~/Scripts/bootstrap.bundle.min.js"></script>
+
+
+
+
+
+    <script type="text/javascript">
+
+        function checkCredit() {
+            if ($("#RemainingCredit").val() - $("#CourseCredit").val() < 0.0) {
+                var ans = confirm("Teacher's Remaining Credit is Going to Be negative, Are You Sure to Assign Extra Credit?");
+                if (ans === true) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        }
+
+        $(document).ready(function () {
+            $("#TeacherDepartmentId").change(function () {
+                var deptId = $("#TeacherDepartmentId").val();
+                $("#TeacherId").empty();
+                $("#Credit").val("");
+                $("#RemainingCredit").val("");
+                $("#CourseId").empty();
+                $("#CourseId").append('<option value= "">---Select Course---</option>');
+                $("#TeacherId").append('<option value= "">---Select Teacher---</option>');
+                var json = {
+                    departmentId: deptId
+
+                };
+
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("GetTeacherByDepartmentId", "Teacher")',
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify(json),
+                    success: function (data) {
+                        $.each(data, function (key, value) {
+                            $("#TeacherId").append('<option value=' + value.Id + '>' + value.TeacherName + '</option>');
+
+                        });
+
+                    }
+                });
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("GetAllUnAssignCoursesByDeptId", "Course")',
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify(json),
+                    success: function (data) {
+                        $.each(data, function (key, value) {
+                            $("#CourseId").append('<option value=' + value.Id + '>' + value.CourseCode + '</option>');
+
+                        });
+
+                    }
+                });
+            });
+            $("#TeacherId").change(function () {
+                var teacherId = $("#TeacherId").val();
+                $("#Credit").empty();
+                $("#Credit").val("");
+                $("#RemainingCredit").val("");
+                var json = {
+                    teacherId: teacherId
+
+                };
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("GetTeacherInformationById", "Teacher")',
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify(json),
+                    success: function (data) {
+                        $("#Credit").val(data.TeacherCredit);
+                        $("#RemainingCredit").val(data.TeacherCredit - data.CourseTaken);
+                    }
+                });
+            });
+            $("#CourseId").change(function () {
+                var courseId = $("#CourseId").val();
+                $("#CourseName").val("");
+                $("#CourseCredit").val("");
+                var json = {
+                    courseId: courseId
+
+                };
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("GetCourseInformationByCourseId", "Course")',
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify(json),
+                    success: function (data) {
+                        $("#CourseName").val(data.CourseName);
+                        $("#CourseCredit").val(data.CourseCredit);
+                    }
+                });
+            });
+        });
+
+    </script>
+</body>
+</html>
